@@ -115,7 +115,7 @@ class window(gtk.Window):
             GtkRunner(lambda *x: x, self.ct.dequeue)
         else:
             GtkRunner(lambda *x: x, self.ct.answer, text)
-        entry.set_text()
+        entry.set_text('')
         GtkRunner(lambda x: self.webview.load_string(HTMLLOADINGPAGE % x[1][2], 'text/html', 'UTF-8','/'), self.ct.getWaitTime )
         GtkRunner(lambda x: self.webview.load_string('<html><body><img src="%s"/></body></html>' % x[1][1], 'text/html', 'UTF-8','/'), self.ct.enqueue)
 
