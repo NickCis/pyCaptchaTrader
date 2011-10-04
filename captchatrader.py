@@ -50,8 +50,14 @@ class captchatrader:
         self.__password = password
 
     def submit(self, imagePath, match=None):
-        '''Submit a job to be solved. imagePath is the path of the captcha image'''
+        '''Submit a job to be solved. imagePath is the path of the captcha image.
+        Returns None if the file can't be opened.'''
         url = "http://api.captchatrader.com/submit"
+        try:
+            img = open(imagePath, 'rb')
+        except IOError as e:
+            print e
+            return None
         params = {'api_key': self.__apikey,
                   'password': self.__password,
                   'username': self.__user,
