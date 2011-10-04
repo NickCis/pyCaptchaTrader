@@ -1,10 +1,11 @@
 import captchatrader
+import getpass
 APIKEY = ''
 if __name__ == '__main__':
     print 'Enter username'
-    user = raw_input('user:')
+    user = raw_input('user: ')
     print 'Enter password'
-    password = raw_input('password:')
+    password = getpass.getpass('password: ')
     if APIKEY == '':
         print 'Apikey wasn\'t configured. If needed please edit de APIKEY= part. Entering your apikey'
         ct = captchatrader.captchatrader()
@@ -22,20 +23,23 @@ if __name__ == '__main__':
         print '6) Dequeue'
         print '7) Get Wait Time'
         print '8) Exit'
-        action = raw_input('Action number:')
+        action = raw_input('Action number: ')
         if int(action) == 1:
-            var = raw_input('Enter the path of the image')
+            var = raw_input('Enter the path of the image: ')
             print 'Submiting. Please wait...'
             print ct.submit(var)
         elif int(action) == 2:
-            var = raw_input('Tiket id:')
-            var2 = raw_input('Was it correct? y/n')
+            var = raw_input('Tiket id (blank for last one): ')
+            var2 = raw_input('Was it correct? (y/n) ')
             if var2.lower() == 'n':
                 var2 = False
             else:
                 var2 = True
             print 'Responding. Plase wait...'
-            print ct.submit(var, var2)
+            if len(var) > 0:
+                print ct.respond(var2, var)
+            else:
+                print ct.respond(var2)
         elif int(action) == 3:
             print 'Getting credits. Please wait...'
             cred = ct.getCredits()
@@ -45,8 +49,8 @@ if __name__ == '__main__':
             print 'Entering to the queue. Please wait...'
             print ct.enqueue()
         elif int(action) == 5:
-            var = raw_input('Tiket id:')
-            var2 = raw_input('Answer to the captcha:')
+            var = raw_input('Tiket id: ')
+            var2 = raw_input('Answer to the captcha: ')
             print 'Submiting. Please wait...'
             print ct.answer(var, var2)
         elif int(action) == 6:
